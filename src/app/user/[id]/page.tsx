@@ -20,7 +20,8 @@ export async function generateStaticParams() {
   return allUsers.map(({ id }) => ({ id }));
 }
 
-export async function generateMetadata({ params: { id } }: PageProps) {
+export async function generateMetadata({ params }: PageProps) {
+  const { id } = await params;
   const user = await getUser(id);
 
   return {
@@ -28,7 +29,8 @@ export async function generateMetadata({ params: { id } }: PageProps) {
   };
 }
 
-export default async function Page({ params: { id } }: PageProps) {
+export default async function Page({ params }: PageProps) {
+  const { id } = await params;
   // Artificial delay to showcase static caching
   await new Promise((resolve) => setTimeout(resolve, 1500));
 

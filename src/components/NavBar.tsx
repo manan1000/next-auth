@@ -1,5 +1,7 @@
-import { auth } from "@/auth";
+import { auth, signIn } from "@/auth";
 import Link from "next/link";
+import { Button } from "./ui/button";
+import UserButton from "./UserButton";
 
 export default async function NavBar() {
   const session = await auth();
@@ -12,7 +14,19 @@ export default async function NavBar() {
         <Link href="/" className="font-bold">
           Next-Auth v5 Tutorial
         </Link>
+        {user ? <UserButton user={user} /> : <SignInButton />}
       </nav>
     </header>
   );
+}
+
+function SignInButton() {
+  return <form action={async () => {
+    "use server";
+    await signIn();
+  }}>
+    <Button type="submit">
+      Sign in
+    </Button>
+  </form>
 }
