@@ -1,7 +1,10 @@
+import { auth } from "@/auth";
 import Link from "next/link";
 
-export default function NavBar() {
-  // TODO: Show the currently logged-in user
+export default async function NavBar() {
+  const session = await auth();
+  const user = session?.user;
+
 
   return (
     <header className="sticky top-0 bg-background px-3 shadow-sm">
